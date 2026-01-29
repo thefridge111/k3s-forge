@@ -1,6 +1,6 @@
 # k3s-argocd-pi
 
-GitOps + Argo CD on Raspberry Pi with k3s, MetalLB, Monitoring, and Ingress.
+GitOps + Argo CD on k3s, MetalLB, Monitoring, and Ingress.
 
 ---
 

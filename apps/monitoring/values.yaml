@@ -1,4 +1,3 @@
-# -- Keep this Pi-friendly (adjust as needed)
 prometheus:
   prometheusSpec:
     retention: 5d
@@ -31,12 +30,12 @@ grafana:
   adminPassword: "admin"  # change in Git, or omit to auto-generate a secret
   service:
     type: LoadBalancer
-    loadBalancerIP: 192.168.178.213  # <-- uses your MetalLB pool
+    loadBalancerIP: 192.168.1.250  # <-- uses your MetalLB pool
     port: 80
     targetPort: 3000
   grafana.ini:
     server:
-      root_url: http://192.168.178.213
+      root_url: http://192.168.1.250
       serve_from_sub_path: true
   resources:
     requests:
@@ -73,9 +72,9 @@ defaultRules:
 
 
 # If you want Prometheus externally too, add:
-prometheus:
-  service:
-    type: LoadBalancer
-    loadBalancerIP: 192.168.178.214
+# prometheus:
+#   service:
+#     type: LoadBalancer
+#     loadBalancerIP: 192.168.1.249
 
 
