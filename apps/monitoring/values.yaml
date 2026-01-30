@@ -30,12 +30,12 @@ grafana:
   adminPassword: "admin"  # change in Git, or omit to auto-generate a secret
   service:
     type: LoadBalancer
-    loadBalancerIP: 192.168.1.250  # <-- uses your MetalLB pool
+    loadBalancerIP: 192.168.1.249  # <-- uses your MetalLB pool
     port: 80
     targetPort: 3000
   grafana.ini:
     server:
-      root_url: http://192.168.1.250
+      root_url: http://192.168.1.249
       serve_from_sub_path: true
   resources:
     requests:

@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/afaqbabar/k3s-argocd-pi.git
+    repoURL: https://github.com/thefridge111/k3s-forge.git
     path: apps/argocd
     targetRevision: main
   destination:

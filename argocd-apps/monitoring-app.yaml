@@ -16,12 +16,12 @@ spec:
           adminPassword: "admin"
           service:
             type: LoadBalancer
-            loadBalancerIP: 192.168.178.213
+            loadBalancerIP: 192.168.1.249
             port: 80
             targetPort: 3000
           grafana.ini:
             server:
-              root_url: http://192.168.178.213
+              root_url: http://192.168.1.249
               serve_from_sub_path: true
           resources:
             requests: { cpu: 50m, memory: 128Mi }

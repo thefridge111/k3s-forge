@@ -14,7 +14,7 @@ spec:
         controller:
           service:
             type: LoadBalancer
-            loadBalancerIP: 192.168.178.214   # pick a free IP from your MetalLB pool
+            loadBalancerIP: 192.168.1.248   # pick a free IP from your MetalLB pool
             externalTrafficPolicy: Local      # preserves client IPs
           publishService:
             enabled: true                     # fixes address/status publishing
