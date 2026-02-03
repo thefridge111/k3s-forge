@@ -13,3 +13,6 @@ kind: L2Advertisement
 metadata:
   namespace: metallb-system
   name: home-adv
+spec:
+  ipAddressPools:
+  - home-pool

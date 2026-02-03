@@ -18,7 +18,7 @@ GitOps + Argo CD on k3s, MetalLB, Monitoring, and Ingress.
 ## Steps
 
 ### 1. Install k3s
-Follow k3s installation steps for Raspberry Pi.
+Follow k3s installation steps
 
 ### 2. Install Argo CD
 Argo CD is installed in the `argocd` namespace.  
