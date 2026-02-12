@@ -22,12 +22,6 @@ Follow k3s installation steps
 
 ### 2. Install Argo CD
 Argo CD is installed in the `argocd` namespace.  
-Access Argo CD at:
-
-```
-http://192.168.178.212
-```
-
 Login using the admin password (changed via UI).
 
 ### 3. Install MetalLB
@@ -36,20 +30,12 @@ Each service can get a fixed IP.
 
 ### 4. Monitoring (Prometheus + Grafana)
 Deployed via Argo CD Helm chart.
-
-- Grafana URL: [http://192.168.178.213](http://192.168.178.213)
-- Retrieve admin password if not overridden:
+Retrieve admin password if not overridden:
   ```bash
   kubectl -n monitoring get secret monitoring-grafana -o jsonpath='{.data.admin-password}' | base64 -d
   ```
 
-### 5. Nginx Test App
-- Service IP: `http://192.168.178.211`
-- Used as a sample workload.
-
-### 6. Ingress-nginx
-Deployed via Argo CD.
-
+### Example app
 #### Application Manifest: `argocd-apps/ingress-nginx-app.yaml`
 ```yaml
 apiVersion: argoproj.io/v1alpha1
