@@ -1,82 +1,114 @@
-# Monitoring stack
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: monitoring
   namespace: argocd
-  finalizers:
-    # The default behaviour is foreground cascading deletion
-    - resources-finalizer.argocd.argoproj.io
-    # Alternatively, you can use background cascading deletion
-    # - resources-finalizer.argocd.argoproj.io/background
 spec:
   project: default
-  source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: 62.7.0
-    helm:
-      # values: |
-      #   grafana:
-      #     enabled: true
-      #     adminPassword: "admin"
-      #     service:
-      #       type: LoadBalancer
-      #       loadBalancerIP: 192.168.1.249
-      #       port: 80
-      #       targetPort: 3000
-      #     grafana.ini:
-      #       server:
-      #         root_url: http://192.168.1.249
-      #         serve_from_sub_path: true
-      #     resources:
-      #       requests: { cpu: 50m, memory: 128Mi }
-      #       limits:   { cpu: 300m, memory: 256Mi }
-      #   prometheus:
-      #     service: { type: ClusterIP }
-      #     prometheusSpec:
-      #       retention: 5d
-      #       retentionSize: "2GB"
-      #       resources:
-      #         requests: { cpu: 100m, memory: 256Mi }
-      #         limits:   { cpu: 500m, memory: 512Mi }
-      #   alertmanager:
-      #     service: { type: ClusterIP }
-      #     alertmanagerSpec:
-      #       resources:
-      #         requests: { cpu: 50m, memory: 128Mi }
-      #         limits:   { cpu: 200m, memory: 256Mi }
-      #   kube-state-metrics:
-      #     resources:
-      #       requests: { cpu: 20m, memory: 64Mi }
-      #       limits:   { cpu: 150m, memory: 128Mi }
-      #   prometheus-node-exporter:
-      #     resources:
-      #       requests: { cpu: 10m, memory: 32Mi }
-      #       limits:   { cpu: 100m, memory: 64Mi }
-      #   defaultRules:
-      #     rules:
-      #       etcd: false
-      #       kubeScheduler: false
-      #       kubeControllerManager: false
-      valueFiles:
-      - values.yaml
+  sources:
+    # Helm chart source
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      targetRevision: 62.7.0
+      helm:
+        valueFiles:
+          - $values/monitoring/values.yaml
+    # Git repo that contains values.yaml
+    - repoURL: https://github.com/thefridge111/k3s-forge
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-  ignoreDifferences:
-    - kind: Service
-      jsonPointers:
-        - /spec/clusterIP
-        - /spec/clusterIPs
-        - /status
-    - kind: ServiceAccount
-      jsonPointers:
-        - /secrets
+
   syncPolicy:
     automated:
       selfHeal: true
       prune: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+
+
+
+
+# # Monitoring stack
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: monitoring
+#   namespace: argocd
+#   finalizers:
+#     # The default behaviour is foreground cascading deletion
+#     - resources-finalizer.argocd.argoproj.io
+#     # Alternatively, you can use background cascading deletion
+#     # - resources-finalizer.argocd.argoproj.io/background
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://prometheus-community.github.io/helm-charts
+#     chart: kube-prometheus-stack
+#     targetRevision: 62.7.0
+#     helm:
+#       values: |
+#         grafana:
+#           enabled: true
+#           adminPassword: "admin"
+#           service:
+#             type: LoadBalancer
+#             loadBalancerIP: 192.168.1.249
+#             port: 80
+#             targetPort: 3000
+#           grafana.ini:
+#             server:
+#               root_url: http://192.168.1.249
+#               serve_from_sub_path: true
+#           resources:
+#             requests: { cpu: 50m, memory: 128Mi }
+#             limits:   { cpu: 300m, memory: 256Mi }
+#         prometheus:
+#           service: { type: ClusterIP }
+#           prometheusSpec:
+#             retention: 5d
+#             retentionSize: "2GB"
+#             resources:
+#               requests: { cpu: 100m, memory: 256Mi }
+#               limits:   { cpu: 500m, memory: 512Mi }
+#         alertmanager:
+#           service: { type: ClusterIP }
+#           alertmanagerSpec:
+#             resources:
+#               requests: { cpu: 50m, memory: 128Mi }
+#               limits:   { cpu: 200m, memory: 256Mi }
+#         kube-state-metrics:
+#           resources:
+#             requests: { cpu: 20m, memory: 64Mi }
+#             limits:   { cpu: 150m, memory: 128Mi }
+#         prometheus-node-exporter:
+#           resources:
+#             requests: { cpu: 10m, memory: 32Mi }
+#             limits:   { cpu: 100m, memory: 64Mi }
+#         defaultRules:
+#           rules:
+#             etcd: false
+#             kubeScheduler: false
+#             kubeControllerManager: false
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: monitoring
+#   ignoreDifferences:
+#     - kind: Service
+#       jsonPointers:
+#         - /spec/clusterIP
+#         - /spec/clusterIPs
+#         - /status
+#     - kind: ServiceAccount
+#       jsonPointers:
+#         - /secrets
+#   syncPolicy:
+#     automated:
+#       selfHeal: true
+#       prune: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - ServerSideApply=true
