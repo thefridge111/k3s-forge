@@ -1,4 +1,4 @@
-# k3s-argocd-pi
+# k3s-forge
 
 GitOps + Argo CD on k3s, MetalLB, Monitoring, and Ingress.
 
@@ -10,8 +10,6 @@ GitOps + Argo CD on k3s, MetalLB, Monitoring, and Ingress.
 - **Argo CD** (GitOps control plane)
 - **MetalLB** (LoadBalancer IPs in local network)
 - **Monitoring** (Prometheus + Grafana)
-- **Nginx test app**
-- **Ingress-nginx** (Ingress controller via MetalLB)
 
 ---
 

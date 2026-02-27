@@ -9,10 +9,12 @@ spec:
     repoURL: 'https://github.com/thefridge111/k3s-forge.git'
     path: apps/metallb
     targetRevision: main
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
   syncPolicy:
     automated:
       selfHeal: true
-      prune: true
+      prune: false
