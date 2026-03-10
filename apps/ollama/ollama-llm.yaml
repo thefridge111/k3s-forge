@@ -30,6 +30,8 @@ spec:
           value: "llama3.2:1b"
         - name: OLLAMA_KEEP_ALIVE
           value: "12h"
+        - name: CUDA_VISIBLE_DEVICES
+          value: -1
         lifecycle:
           postStart:
             exec:
