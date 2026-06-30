@@ -1,3 +1,4 @@
+# Installs underlying MetalLB controller and resources
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
